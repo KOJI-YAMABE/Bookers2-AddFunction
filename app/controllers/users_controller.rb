@@ -40,16 +40,10 @@ def update
   end
 end
 
-def following
-  @user =User.find(params[:id])
-  @users =@user.followings
-  render 'following'
+def follows
 end
 
-def follower
-  @user =User.find(params[:id])
-  @users =@user.followers
-  render 'followers'
+def followers
 end
 
 private

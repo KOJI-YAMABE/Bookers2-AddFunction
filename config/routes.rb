@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 
   root 'home#top'
   get 'home/about'
-  resources :users,only: [:show,:index,:edit,:update]
+  resources :users,only: [:show,:index,:edit,:update] do
+    resource :follow_relationships, only: [:create, :destroy]
+  	member do
+  		get :following, :follower
+      post :follow, :unfollow
+  	end
+  end
+
    resources :books, only: [:index, :show, :edit, :create, :update, :destroy] do
    	resource :favorites, only: [:create, :destroy]
      resources :book_comments, only: [:create, :destroy]

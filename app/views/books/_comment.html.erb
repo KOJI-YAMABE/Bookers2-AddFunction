@@ -1,0 +1,12 @@
+
+<% book_comments.each do |book_comment| %>
+     <div class="comment">
+            <%= attachment_image_tag(book_comment.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %>
+            <%= book_comment.user.name %>
+            <%= book_comment.comment %>
+             <!-- 削除機能-->
+         <% if book_comment.user == current_user %>
+            <%= link_to "Destroy", book_book_comments_path(book_id: book_comment.book, book_comment_id: book_comment), method: :delete, remote: true, class: "btn-sm btn-danger" %>
+         <% end %>
+    </div>
+<% end %>

@@ -1,3 +1,4 @@
+<% if @model == 'user' %>
 <h2>Books search for 'test'</h2>
 <!--books一覧 -->
 <table class="table table-hover table-inverse">
@@ -28,7 +29,7 @@
 <% end %>
 </tbody>
 
-<% else %>
+<% else  @model == 'books' %>
 
 <thead>
  <tr>
@@ -49,3 +50,4 @@
 </tbody>
 <% end %>
 </table>
+<% end %>

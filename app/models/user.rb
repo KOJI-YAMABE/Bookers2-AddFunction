@@ -16,9 +16,17 @@ class User < ApplicationRecord
 
   attachment :profile_image, destroy: false
 
+  #geocoded_by :address
+  #after_validation :geocode, if: :address_changed?
+
   #バリデーションは該当するモデルに設定する。エラーにする条件を設定できる。
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
+  validates :postcode, presence: true
+  validates :prefecture_code, presence: true
+  validates :city, presence: true
+  validates :street, presence: true
+
 
   #ユーザーをフォローする
   def follow(user_id)
@@ -48,4 +56,16 @@ class User < ApplicationRecord
                         @user = User.all
         end
   end
+
+  include JpPrefecture
+  jp_prefecture :prefect_code
+
+  def prefectture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
+
 end

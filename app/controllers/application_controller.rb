@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    root_path(resource)
+    root_path
   end
 
   def set_current_user
@@ -16,7 +16,16 @@ class ApplicationController < ActionController::Base
 
 protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    added_attrs = [ :email, :name, :postcode, :prefecture_code, :city, :street ]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    #devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
   end
+  def correct_user?(user)
+      if current_user.nil?
+        return false
+      else
+        user.id.equal?(current_user.id)
+      end
+    end 
 end

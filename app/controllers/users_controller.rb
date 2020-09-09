@@ -48,8 +48,14 @@ end
 
 private
 def user_params
-  params.require(:user).permit(:name, :introduction, :profile_image)
+  params.require(:user).permit(:name, :introduction, :profile_image, :postcode, :prefecture_code, :city, :street)
 end
+
+ def screen_user
+      unless params[:id].to_i == current_user.id
+        redirect_to user_path(current_user)
+      end
+    end
 
 # def ensure_correct_user
 #   @user = User.find(params[:id])

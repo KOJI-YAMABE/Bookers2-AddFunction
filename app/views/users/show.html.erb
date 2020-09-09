@@ -12,6 +12,13 @@
 		<h2>Books</h2>
 		<%= render 'books/list', books: @books %>
 	</div>
-</div>
+
+	<% if @user == current_user %>
+		<div class="col-xs-12">
+			<h2>Your MAP</h2>
+			<%= render 'map', user: @user %>
+		</div>
+	<% end %>
+ </div>
 
 

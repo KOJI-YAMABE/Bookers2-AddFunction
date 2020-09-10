@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-# before_action :ensure_correct_user, only: [:edit, :update]
 before_action :authenticate_user!
+
 def show
-  @user = User.find(params[:id])
-  @books = @user.books
-  @book = Book.new
+   @user = User.find(params[:id])
+   @books = @user.books
+   @book = Book.new
 end
 
 def create
